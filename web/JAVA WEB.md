@@ -20,9 +20,7 @@ https://www.cnblogs.com/shijingjing07/p/6227728.html
 
 ### How to access a website
 
-exam whether the domain in C:\Windows\System32\drivers\etc\hosts 
-
-![image-20211018092021757](C:\Users\sy\AppData\Roaming\Typora\typora-user-images\image-20211018092021757.png)
+![image-20211018092021757](./images/images/image-20211018092021757.png)
 
 ### HTTP
 
@@ -52,15 +50,15 @@ https://blog.csdn.net/lengxiao1993/article/details/82771768
 
 https://www.cnblogs.com/llsblog/p/10634099.html
 
-![image-20211023150314011](image-20211023150314011.png)
+![image-20211023150314011](./images/image-20211023150314011.png)
 
 这篇讲的好棒！https://www.zhihu.com/question/21416727
 
 #### Serverlet理解
 
-![image-20211022124224267](image-20211022124224267.png)
+![image-20211022124224267](./images/image-20211022124224267.png)
 
-![image-20211022125044299](image-20211022125044299.png)
+![image-20211022125044299](./images/image-20211022125044299.png)
 
 https://blog.csdn.net/weixin_42030522/article/details/85019169
 
@@ -68,7 +66,7 @@ https://blog.csdn.net/weixin_42030522/article/details/85019169
 
 ### HttpServlet
 
-![image-20211023162135035](image-20211023162135035.png)
+![image-20211023162135035](./images/image-20211023162135035.png)
 
 #### Servlet - Request、Session、servletContext区别
 
@@ -130,7 +128,7 @@ getSession是返回当前用户的会话对象，参数的区别在于
 
 https://www.cnblogs.com/chuonye/p/10808765.html
 
-![image-20211023184835002](image-20211023184835002.png)
+![image-20211023184835002](./images/image-20211023184835002.png)
 
 ​		对于静态资源，Tomcat最后会交由一个叫做DefaultServlet的类来处理
 ​		对于Servlet ，Tomcat最后会交由一个叫做 InvokerServlet的类来处理
@@ -234,9 +232,9 @@ https://zhuanlan.zhihu.com/p/62534874
 
 ​		只要传入目标类实现的接口的Class对象，getProxyClass()方法即可返回代理Class对象，而不用实际编写代理类。
 
-![image-20211024153557089](image-20211024153557089.png)
+![image-20211024153557089](./images/image-20211024153557089.png)
 
-![image-20211024183522954](image-20211024183522954.png)
+![image-20211024183522954](./images/image-20211024183522954.png)
 
 ​		动态代理的大致实现设计思路：
 
@@ -312,7 +310,7 @@ public class ProxyTest {
 
 ​		当Spring读取到这个注解，便知道我们要使用事务。而我们编写的UserService类中并没有包含任何事务相关的代码。因此进行动态代理。
 
-![image-20211025095316922](image-20211025095316922.png)
+![image-20211025095316922](./images/image-20211025095316922.png)
 
 ### IOC
 
@@ -356,7 +354,7 @@ https://docs.spring.io/spring-framework/docs/5.2.0.RELEASE/spring-framework-refe
 
 可以通过scope更改
 
-![image-20211026215731343](image-20211026215731343.png)
+![image-20211026215731343](./images/image-20211026215731343.png)
 
 ##### set注入
 
@@ -537,13 +535,13 @@ https://blog.csdn.net/zzming2012/article/details/117298095
 
 ##### @Component
 
-![image-20211027131834065](image-20211027131834065.png)
+![image-20211027131834065](./images/image-20211027131834065.png)
 
 ##### @Configuration
 
 本质也是component
 
-![image-20211027144342940](image-20211027144342940.png)
+![image-20211027144342940](./images/image-20211027144342940.png)
 
 @Configuration注解中的bean如果没有被创建，创建后就会被spring容器一直管理，只要使用，都是直接从容器中获取。
 
@@ -628,7 +626,7 @@ method.invoke(target, args)
 
 XML实现：
 
-![image-20211029182855214](image-20211029182855214.png)
+![image-20211029182855214](./images/image-20211029182855214.png)
 
 ```java
 ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("aopdemo.xml");
@@ -970,15 +968,15 @@ https://blog.csdn.net/caihaijiang/article/details/35552859
 
 http://mybatis.org/spring/zh/sqlsession.html
 
-![image-20211029135426643](image-20211029135426643.png)
+![image-20211029135426643](./images/image-20211029135426643.png)
 
 直接注入sqlSessionfactory是因为继承了父类的set方法
 
-![image-20211029135339631](image-20211029135339631.png)
+![image-20211029135339631](./images/image-20211029135339631.png)
 
 #### Spring整合事务
 
-![image-20211029183037353](image-20211029183037353.png)
+![image-20211029183037353](./images/image-20211029183037353.png)
 
 ##### spring aop中的propagation的7种配置
 
@@ -1161,7 +1159,7 @@ https://blog.csdn.net/sswqzx/article/details/84194979
 
 来接收所有参数
 
-![image-20211109180518852](image-20211109180518852.png)
+![image-20211109180518852](./images/image-20211109180518852.png)
 
 ##### @RequestParam
 
@@ -1184,11 +1182,11 @@ public String test2(User user){
 //这两个作用是一样的
 ```
 
-![image-20211109173423857](image-20211109173423857.png)
+![image-20211109173423857](./images/image-20211109173423857.png)
 
 ##### @RequestAttribute
 
-![image-20211109151453916](image-20211109151453916.png)
+![image-20211109151453916](./images/image-20211109151453916.png)
 
 ##### @AliasFor
 
@@ -1530,11 +1528,11 @@ https://blog.51cto.com/u_4247649/2118351
   ○ 用户去看这个组件是获取的配置文件什么值就去修改。
 xxxxxAutoConfiguration ---> 组件  ---> xxxxProperties里面拿值  ----> application.properties
 
-![image-20211107102058223](image-20211107102058223.png)
+![image-20211107102058223](./images/image-20211107102058223.png)
 
 ### yaml
 
-![image-20211106174012816](image-20211106174012816.png)
+![image-20211106174012816](./images/image-20211106174012816.png)
 
 ### /、/*和/**的区别
 

@@ -8,7 +8,7 @@
 
 #### 初始化
 
-![img](https://pics6.baidu.com/feed/b21bb051f819861894e09f4b5c15217689d4e653.jpeg?token=596cceeaacc2d83077533cab6085ca7e&s=5EA83C6389F94C0B1C7D90CB0000E0B1)
+![img](./images/images/b21bb051f819861894e09f4b5c15217689d4e653.jpeg)
 
 #### 实例化
 
@@ -254,7 +254,7 @@ https://blog.csdn.net/tianjindong0804/article/details/81710268?utm_medium=distri
 
 https://blog.csdn.net/interesting_code/article/details/103306389
 
-![img](https://uploadfiles.nowcoder.com/images/20180704/3807435_1530666258064_20577AE82E2EC5D6D44DD2CA01C99BBA)
+![img](./images/images/3807435_1530666258064_20577AE82E2EC5D6D44DD2CA01C99BBA.png)
 
 ## java容器
 
@@ -340,7 +340,7 @@ https://baijiahao.baidu.com/s?id=1638201147057831295&wfr=spider&for=pc
 
 拉链法解决哈希冲突
 
-![image-20211102101748969](image-20211102101748969.png)
+![image-20211102101748969](./images/image-20211102101748969.png)
 
 https://blog.csdn.net/weixin_43083491/article/details/107737045
 
@@ -440,7 +440,7 @@ CAS 的指令允许算法执行读-修改-写操作，而无需害怕其他线�
 
 其中前面四个，也就是细体部分是从HashMap.Entry中继承过来的；后面两个，也就是粗体部分是LinkedHashMap独有的。不要搞错了next和before、After，**next是用于维护HashMap指定table位置上连接的Entry的顺序的，before、After是用于维护Entry插入的先后顺序的**。
 
-![image-20211102162240427](image-20211102162240427.png)
+![image-20211102162240427](./images/image-20211102162240427.png)
 
 这篇讲的贼棒https://www.cnblogs.com/xiaoxi/p/6170590.html
 
