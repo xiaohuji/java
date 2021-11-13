@@ -20,7 +20,7 @@ https://www.cnblogs.com/shijingjing07/p/6227728.html
 
 ### How to access a website
 
-![image-20211018092021757](./images/images/image-20211018092021757.png)
+![image-20211018092021757](./images/image-20211018092021757.png)
 
 ### HTTP
 
@@ -41,8 +41,6 @@ https://www.cnblogs.com/bj-mr-li/p/11106390.html
 https://blog.csdn.net/lengxiao1993/article/details/82771768
 
 ### socket
-
-
 
 ### serverlet
 
@@ -185,11 +183,11 @@ https://blog.csdn.net/huluwa10526/article/details/110424296
 Calculator calculator = new CalculatorProxy(new CalculatorImpl())
 ```
 
-<img src="image-20211024165920275.png" alt="image-20211024165920275" style="zoom:33%;" />
+<img src="./images/image-20211024165920275.png" alt="image-20211024165920275" style="zoom:33%;" />
 
 
 
-<img src="image-20211024192103436.png" alt="image-20211024192103436" style="zoom: 33%;" />
+<img src="./images/image-20211024192103436.png" alt="image-20211024192103436" style="zoom: 33%;" />
 
 ```java
 public class Test {
@@ -217,7 +215,7 @@ https://zhuanlan.zhihu.com/p/62534874
 
 ​		简而言之，为了不写代理类，却能完成代理功能。我们希望动态代理可以为接口类创建一个空的、可变的代理类（构造器及空方法等），再将实现类的方法的空方法自动写入，并自动为其添上头尾。
 
-<img src="image-20211024173402796.png" alt="image-20211024173402796" style="zoom:33%;" />
+<img src="./images/image-20211024173402796.png" alt="image-20211024173402796" style="zoom:33%;" />
 
 - 接口Class对象没有构造方法，所以Calculator接口不能直接new对象
 - 实现类Class对象有构造方法，所以CalculatorImpl实现类可以new对象
