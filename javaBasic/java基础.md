@@ -554,7 +554,7 @@ https://my.oschina.net/u/4872612/blog/4812319
 
 https://cloud.tencent.com/developer/article/1033693
 
-##### 泛型TEKV区别以及class<T><?>
+##### 泛型TEKV区别以及class<?>
 
 - **？** 表示不确定的java类型
 - **T (type)** 表示具体的一个java类型
@@ -577,7 +577,9 @@ public class Test {
 
 https://blog.csdn.net/a519781181/article/details/79424014
 
-**<? extends T>**
+是不是这里出了问题
+
+这里
 
 不能使用set，因为只规定了上界。
 
