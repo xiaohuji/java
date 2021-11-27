@@ -577,9 +577,9 @@ public class Test {
 
 https://blog.csdn.net/a519781181/article/details/79424014
 
-<? extends T>
+**<? extends T>**
 
-不能使用set，因为只规定了上界，
+不能使用set，因为只规定了上界。
 
 https://blog.csdn.net/jeffleo/article/details/52250948
 
@@ -974,7 +974,7 @@ https://www.cnblogs.com/zhangchengzi/p/9685918.html
 
 配合周神的书一起看
 
-![在这里插入图片描述](images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tvYmVfaw==,size_16,color_FFFFFF,t_70#pic_center.png)
+<img src="images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tvYmVfaw==,size_16,color_FFFFFF,t_70#pic_center.png" alt="在这里插入图片描述" style="zoom:50%;" />
 
 <img src="https://pic2.zhimg.com/80/v2-6dedd86d39ce424575c62033daeddeb9_1440w.jpg" alt="img" style="zoom:50%;" />
 
