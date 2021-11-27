@@ -691,6 +691,16 @@ WHERE NOT EXISTS(SELECT *
             FROM enrol e
             WHERE e.Sno = s.Sno 
                  and e.Cno IN ('1','3','5','8')
+              
+-------------------------------------------------
+SELECT ENAME
+FROM ENP p LEFT JOIN EP j ON p.ENO=j.ENO
+WHERE j.PNO is NULL AND p.DNO = (
+SELECT p.DNO
+FROM p
+WHERE p.DNAME='工程部'
+)
+                 
 ```
 
 ![image-20211108152905905](./images/image-20211108152905905.png)
@@ -883,3 +893,77 @@ GO
 用虚拟列是view后的列属性字段不能省略
 
 建立视图时，从基本表出来的数据最好不使用SELECT *，不然基本表的改变会影响视图。
+
+### 授权
+
+授予
+
+```
+GRANT SELECT, UPDATE(sdept)
+ON student TO U1
+
+GRANT ALL PRIVILEGES
+ON student
+TO U2
+
+
+```
+
+收回
+
+```
+REVOKE UPDATE(sdept)
+ON student
+FROM U1
+
+REVOKE ALL PRIVILEGES
+ON student
+FROM U2 CASCADE
+```
+
+## ER图
+
+### entity
+
+矩形
+
+**student**
+
+### attribute
+
+the **name** of a student
+
+椭圆
+
+#### composite attribute
+
+#### simple attribute
+
+#### multi-value attributes
+
+双线
+
+#### derived attributes
+
+虚线椭圆
+
+可以通过其他的attributes计算得到的 :年龄和出生日期都可以作为一个人的属性，但是出生日期是不变的，而年龄是可以通过计算得到的，
+
+### relationships
+
+菱形
+
+student **enrols in** subject
+
+三个二元关系不等价于一个三元关系
+
+#### relationship participation
+
+partial 单线
+
+tatol 双线
+
+### supertypes
+
+## 数据库设计
+

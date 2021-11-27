@@ -40,6 +40,10 @@ https://www.cnblogs.com/bj-mr-li/p/11106390.html
 
 https://blog.csdn.net/lengxiao1993/article/details/82771768
 
+#### 重定向
+
+
+
 ### socket
 
 ### serverlet
@@ -228,6 +232,8 @@ https://zhuanlan.zhihu.com/p/62534874
 
 ​		因此有了getProxyClass()方法
 
+​		通过给Proxy.getProxyClass()传入类加载器和接口Class对象，我们得到了一个**加强版的Class**：即包含接口的方法信息add()、subtract()，又包含了构造器$Proxy0(InvocationHandler)，还有一些自己特有的方法以及从Object继承的方法。
+
 ​		只要传入目标类实现的接口的Class对象，getProxyClass()方法即可返回代理Class对象，而不用实际编写代理类。
 
 ![image-20211024153557089](./images/image-20211024153557089.png)
@@ -316,26 +322,35 @@ https://www.zhihu.com/question/335362570
 
 ## Spring
 
-#### 依赖注入
+### 依赖注入
 
-##### 构造器注入
+#### 构造器注入
 
 默认使用无参构造。
 
 有参构造的三种方式：
 
 ```xml
-<bean id="exampleBean" class="examples.ExampleBean">    <constructor-arg type="int" value="7500000"/>    <constructor-arg type="java.lang.String" value="42"/> </bean>
+<bean id="exampleBean" class="examples.ExampleBean">   
+    <constructor-arg type="int" value="7500000"/>    
+    <constructor-arg type="java.lang.String" value="42"/> 
+</bean>
 ```
 
 如果有参构造里如果有多个重复的形参，那就按顺序写。
 
 ```xml
-<bean id="exampleBean" class="examples.ExampleBean">    <constructor-arg index="0" value="7500000"/>    <constructor-arg index="1" value="42"/> </bean>
+<bean id="exampleBean" class="examples.ExampleBean">    
+    <constructor-arg index="0" value="7500000"/>    
+    <constructor-arg index="1" value="42"/> 
+</bean>
 ```
 
 ```xml
-<bean id="exampleBean" class="examples.ExampleBean">    <constructor-arg name="years" value="7500000"/>    <constructor-arg name="ultimateAnswer" value="42"/> </bean>
+<bean id="exampleBean" class="examples.ExampleBean">    
+    <constructor-arg name="years" value="7500000"/>    
+    <constructor-arg name="ultimateAnswer" value="42"/> 
+</bean>
 ```
 
 https://docs.spring.io/spring-framework/docs/5.2.0.RELEASE/spring-framework-reference/core.html#beans-constructor-injectAutowon
@@ -354,16 +369,16 @@ https://docs.spring.io/spring-framework/docs/5.2.0.RELEASE/spring-framework-refe
 
 ![image-20211026215731343](./images/image-20211026215731343.png)
 
-##### set注入
+#### set注入
 
 本质都是set注入。
 
-设值 **注入** **是**指通过setter方法传入被调用者的实例。这种 **注入**方式简单、直观，因而在Spring的 **依赖** **注入**里大量使用。看下面代码， **是**Person的接口
+设值 **注入** 是指通过setter方法传入被调用者的实例。这种 **注入**方式简单、直观，因而在Spring的 **依赖** **注入**里大量使用。看下面代码， 是Person的接口
 
 //定义Person接口 public interface Person { //Person接口里定义一个使用斧子的方法 public void useAxe(); }
 
 
-然后 **是**Axe的接口
+然后 是Axe的接口
 
 //定义Axe接口 public interface Axe { //Axe接口里有个砍的方法 public void chop(); }
 
@@ -402,30 +417,29 @@ StoneAxe  public class StoneAxe implements Axe {
 ```xml
 <!-- 下面**是**标准的XML文件头 -->
 <?xml version="1.0" encoding="gb2312"?> 
-＜!-- 下面一行定义Spring的XML配置文件的dtd --＞ "http://www.springframework.org/dtd/spring-beans.dtd"＞ 
-＜!-- 以上三行对所有的Spring配置文件都**是**相同的 --＞ 
-＜!-- Spring配置文件的根元素 --＞ 
-＜BEANS＞ 
-＜!—定义第一bean，该bean的id**是**chinese, class指定该bean实例的实现类 --＞ 
-＜BEAN class=lee.Chinese id=chinese＞ 
-＜!-- property元素用来指定需要容器**注入**的属性，axe属性需要容器**注入**此处**是**设值**注入**，因此Chinese类必须拥有setAxe方法 --＞
-
-＜property name="axe"＞ 
-＜!-- 此处将另一个bean的引用**注入**给chinese bean --＞ 
-＜REF local="”stoneAxe”/"＞ 
-＜/property＞ 
-＜/BEAN＞ 
-＜!-- 定义stoneAxe bean --＞ 
-＜BEAN class=lee.StoneAxe id=stoneAxe /＞ 
-＜/BEANS＞
+<!-- 下面一行定义Spring的XML配置文件的dtd --> <"http://www.springframework.org/dtd/spring-beans.dtd"> 
+<!-- 以上三行对所有的Spring配置文件都**是**相同的 --> 
+<!-- Spring配置文件的根元素 --> 
+<BEANS> 
+    <!—定义第一bean，该bean的id**是**chinese, class指定该bean实例的实现类 --> 
+    <BEAN class=lee.Chinese id=chinese> 
+    <!-- property元素用来指定需要容器**注入**的属性，axe属性需要容器**注入**此处**是**设值**注入**，因此Chinese类必须拥有setAxe方法 -->
+        <property name="axe"> 
+        <!-- 此处将另一个bean的引用**注入**给chinese bean --> 
+            <REF local="”stoneAxe”/"> 
+        </property> 
+    </BEAN> 
+    <!-- 定义stoneAxe bean --> 
+    <BEAN class=lee.StoneAxe id=stoneAxe /> 
+</BEANS>
 ```
 
 
-从配置文件中，可以看到Spring管理bean的灵巧性。bean与bean之间的 **依赖**关系放在配置文件里组织，而不是写在代码里。通过配置文件的 指定，Spring能精确地为每个bean **注入**属性。因此，配置文件里的bean的class元素，不能仅仅 **是**接口，而必须 **是**真正的实现类。
+从配置文件中，可以看到Spring管理bean的灵巧性。bean与bean之间的 **依赖**关系放在配置文件里组织，而不是写在代码里。通过配置文件的 指定，Spring能精确地为每个bean **注入**属性。因此，配置文件里的bean的class元素，不能仅仅 是接口，而必须 是真正的实现类。
 
 Spring会自动接管每个bean定义里的property元素定义。Spring会在执行无参数的构造器后、创建默认的bean实例后，调用对应 的setter方法为程序 **注入**属性值。property定义的属性值将不再由该bean来主动创建、管理，而改为被动接收Spring的 **注入**。
 
-每个bean的id属性 **是**该bean的惟一标识，程序通过id属性访问bean，bean与bean的 **依赖**关系也通过id属性完成。
+每个bean的id属性 是该bean的惟一标识，程序通过id属性访问bean，bean与bean的 **依赖**关系也通过id属性完成。
 
 下面看主程序部分:
 
@@ -449,13 +463,13 @@ public class BeanTest {
 
 石斧砍柴好慢
 
-主程序调用Person的useAxe()方法时，该方法的方法体内需要使用Axe的实例，但程序里没有任何地方将特定的Person实例和Axe实 例耦合在一起。或者说，程序里没有为Person实例传入Axe的实例，Axe实例由Spring在运行期间动态 **注入**。
+主程序调用Person的useAxe()方法时，该方法的方法体内需要使用Axe的实例，但程序里没有任何地方将特定的Person实例和Axe实 例耦合在一起。或者说，程序里没有为Person实例传入Axe的实例，Axe实例由Spring在运行期间**动态注入**。
 
 Person实例不仅不需要了解Axe实例的具体实现，甚至无须了解Axe的创建过程。程序在运行到需要Axe实例的时候，Spring创建了Axe 实例，然后 **注入**给需要Axe实例的调用者。Person实例运行到需要Axe实例的地方，自然就产生了Axe实例，用来供Person实例使用。
 
 https://blog.csdn.net/taijianyu/article/details/2338311?ivk_sa=1024320u
 
-##### @Autowired
+#### @Autowired
 
 默认属性required是为true
 
@@ -463,8 +477,64 @@ https://blog.csdn.net/taijianyu/article/details/2338311?ivk_sa=1024320u
 
 其实在启动spring IoC时，容器自动装载了一个AutowiredAnnotationBeanPostProcessor后置处理器，当容器扫描到@Autowied、@Resource(是CommonAnnotationBeanPostProcessor后置处理器处理的)或@Inject时，就会在IoC容器自动查找需要的bean，并装配给该对象的属性
 
+##### @Resource
+
+根据类的名字进行装配
+
 ```
  <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+```
+
+**可以使用（@Component和@Bean）或者@Component来xml中代替<beans>和<bean>设置要注入的类**
+
+**然后使用@Autowired，代替xml中写构造方法或setter方法**
+
+构造器注入：利用构造方法的参数注入依赖
+
+```java
+@Controller
+public class FooController {
+   
+  private final FooService fooService;
+   
+  @Autowired
+  public FooController(FooService fooService) {
+      this.fooService = fooService;
+  }
+}
+```
+
+代替：
+
+
+
+Setter注入：调用Setter的方法注入依赖
+
+```java
+@Controller
+public class FooController {
+   
+  private FooService fooService;
+   
+  @Autowired
+  public void setFooService(FooService fooService) {
+      this.fooService = fooService;
+  }
+}
+```
+
+注解注入：在字段上使用@Autowired/Resource注解
+
+```java
+@Controller
+public class FooController {
+  @Autowired
+  private FooService fooService;
+   
+  public List<Foo> listFoo() {
+      return fooService.list();
+  }
+}
 ```
 
 将使用有注解的构造函数进行Bean的初始化。那么，如果有两个@Autowired注解呢？结果肯定是报错，因为@Autowired的默认属性required是为true的，也就是说两个required=true的构造器，Spring不知道使用哪一个。但如果是这样写的话：
@@ -500,6 +570,64 @@ https://blog.csdn.net/qq_41737716/article/details/85596817
 
 　　　　如果查询的结果为空，那么会抛出异常。解决方法时，使用required=false
 
+作者：苏三说技术
+链接：https://www.zhihu.com/question/39356740/answer/1907479772
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+##### **@Autowired的高端玩法**
+
+其实上面举的例子都是通过@Autowired自动装配单个实例，但这里我会告诉你，它也能自动装配多个实例，怎么回事呢？
+
+将UserService方法调整一下，用一个List集合接收IUser类型的参数：
+
+```text
+@Service
+public class UserService {
+
+    @Autowired
+    private List<IUser> userList;
+
+    @Autowired
+    private Set<IUser> userSet;
+
+    @Autowired
+    private Map<String, IUser> userMap;
+
+    public void test() {
+        System.out.println("userList:" + userList);
+        System.out.println("userSet:" + userSet);
+        System.out.println("userMap:" + userMap);
+    }
+}
+```
+
+增加一个controller：
+
+```text
+@RequestMapping("/u")
+@RestController
+public class UController {
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("/test")
+    public String test() {
+        userService.test();
+        return "success";
+    }
+}
+```
+
+调用该接口后：
+
+![img](images/v2-9392e5c4c87b6c337ba3e4524984aff9_720w.jpg)
+
+从上图中看出：userList、userSet和userMap都打印出了两个元素，说明@Autowired会自动把相同类型的IUser对象收集到集合中。
+
+这篇讲的很好https://www.zhihu.com/question/39356740/answer/1907479772
+
 ###### 存在的问题
 
 @Autowired依赖注入不推荐了
@@ -531,19 +659,182 @@ Instantiation of bean failed; nested exception is org.springframework.beans.Bean
 出现这个问题的原因是，Java 在初始化一个类时，是按照静态变量或静态语句块 –> 实例变量或初始化语句块 –> 构造方法 -> @Autowired 的顺序。所以在执行这个类的构造方法时，person 对象尚未被注入，它的值还是 null。
 https://blog.csdn.net/zzming2012/article/details/117298095
 
-##### @Component
+###### 为什么IDEA只对@Autowired警告，却对@Resource视而不见呢？
+
+个人认为，就像我们前面提到过的：@Autowired是Spring提供的，它是特定IoC提供的特定注解，这就导致了应用与框架的强绑定，一旦换用了其他的IoC框架，是不能够支持注入的。而@Resource是JSR-250提供的，它是Java标准，我们使用的IoC容器应当去兼容它，这样即使更换容器，也可以正常工作。
+
+https://www.zhihu.com/question/39356740/answer/1907479772
+
+
+#### **Autowired和@Resouce的区别**
+
+@Autowired功能虽说非常强大，但是也有些不足之处。比如：比如它跟spring强耦合了，如果换成了JFinal等其他框架，功能就会失效。而@Resource是JSR-250提供的，它是Java标准，绝大部分框架都支持。
+
+除此之外，有些场景使用@Autowired无法满足的要求，改成@Resource却能解决问题。接下来，我们重点看看@Autowired和@Resource的区别。
+
+- @Autowired默认按byType自动装配，而@Resource默认byName自动装配。
+- @Autowired只包含一个参数：required，表示是否开启自动准入，默认是true。而@Resource包含七个参数，其中最重要的两个参数是：name 和 type。
+- @Autowired如果要使用byName，需要使用@Qualifier一起配合。而@Resource如果指定了name，则用byName自动装配，如果指定了type，则用byType自动装配。
+- @Autowired能够用在：构造器、方法、参数、成员变量和注解上，而@Resource能用在：类、成员变量和方法上。
+- @Autowired是spring定义的注解，而@Resource是JSR-250定义的注解。
+
+#### @Bean
+
+一个例子
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public TransferService transferService() {
+        return new TransferServiceImpl();
+    }
+
+}
+```
+
+这个配置就等同于之前在xml里的配置
+
+```xml
+<beans>
+    <bean id="transferService" class="com.acme.TransferServiceImpl"/>
+</beans>
+```
+
+#### @Component
 
 ![image-20211027131834065](./images/image-20211027131834065.png)
 
-##### @Configuration
+- 作用
+  - 此注解修饰的类就会被Spring扫描到并注入到Spring的bean容器中
+- 出现位置
+  - 接口、类、枚举、注解
+- 注意
+  - `@Controller` 注解的bean会被spring-mvc框架所使用。
+  - `@Repository` 会被作为持久层操作（数据库）的bean来使用
+  - `@Component`是自定义能力最好的注解
+- 细节
+  - `@Component`就是跟`<bean>`一样，可以托管到Spring容器进行管理。
+  - `@Service`, `@Controller` , `@Repository` = {`@Component` + 一些特定的功能}。这个就意味着这些注解在部分功能上是一样的。
+
+#### @Configuration
 
 本质也是component
 
 ![image-20211027144342940](./images/image-20211027144342940.png)
 
+@Configuration用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法， 这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。
+
+##### @Configuration和@Component
+
 @Configuration注解中的bean如果没有被创建，创建后就会被spring容器一直管理，只要使用，都是直接从容器中获取。
 
 @Component注解相当于每次用，每次都会去创建。可以使用@Autowired，那么原始的方法体会被执行并且结果对象会被注册到Spring上下文中，之后所有的对该方法的调用仅仅只是从Spring上下文中取回该对象返回给调用者。
+
+https://www.cnblogs.com/cxy2020/p/14021985.html
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MyTestConfig {
+
+	@Bean
+	public Driver driver() {
+		Driver driver = new Driver();
+		driver.setId(1);
+		driver.setName("driver");
+		driver.setCar(car());
+		return driver;
+	}
+
+	@Bean
+	public Car car() {
+		Car car = new Car();
+		car.setId(1);
+		car.setName("car");
+		return car;
+	}
+
+}
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Component
+public class MyTestConfig {
+
+	@Bean
+	public Driver driver() {
+		Driver driver = new Driver();
+		driver.setId(1);
+		driver.setName("driver");
+		driver.setCar(car());
+		return driver;
+	}
+
+	@Bean
+	public Car car() {
+		Car car = new Car();
+		car.setId(1);
+		car.setName("car");
+		return car;
+	}
+
+}
+```
+
+上面两段代码除MyTestConfig类上的`注解不同之外其他都相同`，但Spring对两者的处理方式是完全不一样的。
+
+- 第一段代码会像我们期望的一样正常运行，因为driver()这段代码中driver.setCar(car())方法会由Spring代理执行，
+
+  Spring发现方法所请求的Bean已经在容器中，那么就直接返回容器中的Bean。所以全局只有一个Car对象的实例。
+
+- 第二段代码在执行driver() 时driver.setCar(car())不会被Spring代理，会直接调用car()方法获取一个全新的Car对象实例，所以全局会有多个Car对象的实例
+
+造成这种差异的原因如下:
+
+概括就是 @Configuration 中所有带 @Bean 注解的方法都会被动态代理，因此调用该方法返回的都是同一个实例。
+
+其工作原理是：如果方式是首次被调用那么原始的方法体会被执行并且结果对象会被注册到Spring上下文中，之后所有的对该方法的调用仅仅只是从Spring上下文中取回该对象返回给调用者。
+
+在上面的第二段代码中，driver.setCar(car())只是纯JAVA方式的调用，多次调用该方法返回的是不同的对象实例。
+
+要修正第二段代码中的问题，可以使用@Autowired如下所示:
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+//@Configuration
+@Component
+public class MyTestConfig2 {
+
+	@Autowired
+	Car car;
+	
+	@Bean
+	public Driver driver() {
+		Driver driver = new Driver();
+		driver.setId(1);
+		driver.setName("driver");
+		driver.setCar(car);
+		return driver;
+	}
+
+	@Bean
+	public Car car() {
+		Car car = new Car();
+		car.setId(1);
+		car.setName("car");
+		return car;
+	}
+
+}
+```
 
 https://www.cnblogs.com/cxy2020/p/14021985.html
 
@@ -556,6 +847,67 @@ https://www.cnblogs.com/cxy2020/p/14021985.html
 @Bean 用在方法上，告诉Spring容器，你可以从下面这个方法中拿到一个Bean
 
 https://blog.csdn.net/liuyinfei_java/article/details/82011805
+
+##### @Component和@Bean
+
+首先我们看看这两个注解的作用：
+
+- @Component注解表明一个类会作为组件类，并告知Spring要为这个类创建bean。
+- @Bean注解告诉Spring这个方法将会返回一个对象，这个对象要注册为Spring应用上下文中的bean。通常方法体中包含了最终产生bean实例的逻辑。
+
+两者的目的是一样的，都是注册bean到Spring容器中。
+
+@Component（@Controller、@Service、@Repository）通常是通过类路径扫描来自动侦测以及自动装配到Spring容器中。
+
+而@Bean注解通常是我们在标有该注解的方法中定义产生这个bean的逻辑。
+
+举个栗子：
+
+```kotlin
+@Controller
+
+//在这里用Component，Controller，Service，Repository都可以起到相同的作用。
+
+@RequestMapping(″/web/controller1″)
+public class WebController {
+    .....
+}
+```
+
+而@Bean的用途则更加灵活
+
+当我们引用第三方库中的类需要装配到Spring容器时，则只能通过@Bean来实现
+
+举个例子：
+
+```java
+public class WireThirdLibClass {
+    @Bean
+    public ThirdLibClass getThirdLibClass() {
+        return new ThirdLibClass();
+    }
+}
+```
+
+再举个只能用@Bean的例子：
+
+```kotlin
+@Bean
+public OneService getService(status) {
+    case (status)  {
+        when 1:
+                return new serviceImpl1();
+        when 2:
+                return new serviceImpl2();
+        when 3:
+                return new serviceImpl3();
+    }
+}
+```
+
+以上这个例子是无法用Component以及其具体实现注解（Controller、Service、Repository）来实现的。
+
+https://www.cnblogs.com/zzw3014/p/11858508.html
 
 ### Spring实现AOP的两种方式
 
@@ -763,7 +1115,7 @@ public interface BeanFactoryPostProcessor {
 }
 ```
 
-BeanFactoryProcessor接口很简单，只有一个方法，方法名字也很显义，即BeanFactory的后处理工作，那么参数中的BeanFactory就是我们要处理的BeanFactory了。
+BeanFactoryPostProcessor接口很简单，只有一个方法，方法名字也很显义，即BeanFactory的后处理工作，那么参数中的BeanFactory就是我们要处理的BeanFactory了。
 
 ```text
 // 这里我们使用BeanFactory的子接口
@@ -830,7 +1182,36 @@ Generic bean: class [com.example.springdemo.Bean.Student]; scope=; abstract=fals
 
 https://zhuanlan.zhihu.com/p/90717151
 
+```java
+beanDefintionMap（存储beanDefintion的集合）就定义在beanFactory当中；而且他也提供额api供程序员来操作这个map，比如可以修改这个map当中的beanDefinition对象，也可以添加一个beanDefinition对象到这个map当中；看一段代码
 
+@Component
+public class TestBeanFactoryPostPorcessor implements BeanFactoryPostProcessor {
+	@Override
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		//转换为子类，因为父类没有添加beanDefintion对象的api
+		DefaultListableBeanFactory defaultbf =
+				(DefaultListableBeanFactory) beanFactory;
+
+		//new一个Y的beanDefinition对象，方便测试动态添加
+		GenericBeanDefinition y= new GenericBeanDefinition();
+		y.setBeanClass(Y.class);
+		//添加一个beanDefinition对象，原本这个Y没有被spring扫描到
+		defaultbf.registerBeanDefinition("y", y);
+	
+		//得到一个已经被扫描出来的beanDefintion对象x
+		//因为X本来就被扫描出来了，所以是直接从map中获取
+		BeanDefinition x = defaultbf.getBeanDefinition("x");
+		//修改这个X的beanDefintion对象的class为Z
+		//原本这个x代表的class为X.class；现在为Z.class
+		x.setBeanClassName("com.luban.beanDefinition.Z");
+	}
+
+}
+```
+
+项目里面有三个类X，Y，Z其中只有X加了@Component注解；也就是当代码执行到上面那个方法的时候只扫描到了X；beanFactory里的beanDefinitionMap当中也只有X所对应的beanDefinition对象；笔者首先new了一个Y所对应的beanDefinition对象然后调用registerBeanDefinition("y", y)；把y对应的beanDefinition对象put到beanDefinitionMap，这是演示动态添加一个自己实例化的beanDefinition对象；继而又调用getBeanDefinition("x")得到一个已经存在的beanDefinition对象，然后调用x.setBeanClassName("Z");把x所对应的beanDefinition对象所对应的class改成了Z，这是演示动态修改一个已经扫描完成的beanDefinition对象；
+https://blog.csdn.net/java_lyvee/article/details/102633067
 
 #### BeanPostProcessor
 
@@ -962,6 +1343,195 @@ public class PostProcessorMain {
 
 https://blog.csdn.net/caihaijiang/article/details/35552859
 
+#### initializeBean
+
+在initializeBean的方法中调用了invokeInitMethods方法，在invokeInitMethods会判断bean是否实现了InitializingBean接口，如果实现了个该接口，则调用afterPropertiesSet方法执行自定义的初始化过程，invokeInitMethods实现代码如下：
+
+
+
+```java
+    protected void invokeInitMethods(String beanName, final Object bean, RootBeanDefinition mbd)
+            throws Throwable {
+              //判断是否实现了InitializingBean接口
+        boolean isInitializingBean = (bean instanceof InitializingBean);
+        if (isInitializingBean && (mbd == null || !mbd.isExternallyManagedInitMethod("afterPropertiesSet"))) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Invoking afterPropertiesSet() on bean with name '" + beanName + "'");
+            }
+            if (System.getSecurityManager() != null) {
+                try {
+                    AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
+                        @Override
+                        public Object run() throws Exception {
+                            ((InitializingBean) bean).afterPropertiesSet();
+                            return null;
+                        }
+                    }, getAccessControlContext());
+                }
+                catch (PrivilegedActionException pae) {
+                    throw pae.getException();
+                }
+            }
+            else {
+                                 //调用afterPropertiesSet方法执行自定义初始化流程
+                ((InitializingBean) bean).afterPropertiesSet();
+            }
+        }
+ 
+        if (mbd != null) {
+            String initMethodName = mbd.getInitMethodName();
+            if (initMethodName != null && !(isInitializingBean && "afterPropertiesSet".equals(initMethodName)) &&
+                    !mbd.isExternallyManagedInitMethod(initMethodName)) {
+                invokeCustomInitMethod(beanName, bean, mbd);
+            }
+        }
+    }
+```
+
+在SpringMVC中AbstractHandlerMethodMapping就实现了InitializingBean接口，当一个RequestMappingHandlerMapping的实例创建完成后会接着调用afterPropertiesSet方法，扫描所有的controller完成所有的handler method的注册。
+
+https://www.jianshu.com/p/f0af22d671a5
+
+#### DisposableBean
+
+其实看过了InitializingBean，再看DisposableBean就简单很多了。 当bean使用完毕后，容器将检查**singleton**类型的bean，看其是否实现了DisposableBean接口，接口中有一个方法提供了singleton类型的对象实例销毁之前执行的销毁逻辑。
+
+```text
+public interface DisposableBean {
+    void destroy() throws Exception;
+}
+```
+
+如上代码，提供了一个destroy()方法实现销毁逻辑，我们来用下吧
+
+```text
+public class Account implements  InitializingBean, DisposableBean {
+    private String name;
+
+    // getter setter constructor
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("exit...##############################################");
+    }
+}
+```
+
+其实跟上边的基本一样，只是多实现了一个接口，同时实现了destroy()方法。
+
+```text
+@Bean
+    @Scope("singleton")
+    public Account account(){
+        return new Account("fff");
+    }
+```
+
+同时，在config中我把Account的bean设为了 singleton 实例，其实不设置也可以，默认就是 singleton，接着进行测试
+
+```text
+@Test
+    public void tt(){
+        System.out.println(account.getName());
+    }
+bbfff
+2019-11-10 14:51:54.970  INFO 14292 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+exit...##############################################
+```
+
+可以看到打印出来了 exit...############## ，说明成功的执行了destroy方法，当然，这是因为我们的容器关闭导致的。
+
+> **可以发现我们上边很多次强调了要是 singleton 的bean，这是因为 prototype 的bean实例在实例化返回给请求方时后，就不再由容器管理，自然不会执行后续的destroy 方法。**
+>
+> https://zhuanlan.zhihu.com/p/91009066
+
+### spring依赖循环
+
+（1）实例化和初始化
+
+- 实例化：内存中申请一块内存空间
+- 初始化：属性填充，完成属性的各种赋值
+
+二级缓存就是已经实例化但是未初始化的对象。
+
+（2）关注三个map和四个方法
+
+ (3）AB对象再三级缓存中的迁移说明
+
+- A创建过程需要B，于是A先将自己放入到三级缓存中，去实例化B
+- B实例化的时候发现需要A，于是B先查一级缓存，没有，再查二级缓存，还是没有，就查三级缓存，找到A，然后把三级缓存里面的A放到二级缓存，并删除三级缓存里面的A
+- B顺利初始化完毕，将自己放到一级缓存里面（此时B里面的A依然是创建中的状态），然后回来继续创建A，此时B已经创建结束，直接从一级缓冲中拿到B，并完成创建，然后A把自己放到一级缓存中去。
+
+```java
+	boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences && isSingletonCurrentlyInCreation(beanName));
+```
+
+spring的循环依赖，不支持原型，不支持构造方法注入的bean；默认情况下单例bean是支持循环依赖的，但是也支持关闭，关闭的原理就是设置allowCircularReferences=false；spring提供了api来设置这个值；
+
+先看这个http://www.manongjc.com/detail/25-rthcccvjxragdiq.html?ivk_sa=1024320u
+
+配合这个goodgood！https://blog.csdn.net/java_lyvee/article/details/101793774
+
+### 类A(单例的)需要注入一个类B（原型的）
+
+```java
+@Component
+public class A{
+	@Autowired
+	ApplicationContext applicationContext;
+	public B m(){
+		//每次调用m都是通过spring容器去获取b
+		//如果b是原型，每次拿到的都是原型b
+		B b= applicationContext.getBean("b");
+		return b;
+	}
+}
+```
+
+https://blog.csdn.net/java_lyvee/article/details/105092466
+
+### @Value
+
+spring不能注入static变量的原因，具体详情如下所示：
+
+Spring 依赖注入 是依赖 set方法
+
+set方法是 是普通的对象方法
+
+static变量是类的属性
+
+```java
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import lombok.Getter;
+
+@Component
+public class GlobalValue {
+
+    @Getter
+    public static String DATABASE;
+     
+    @Value("${mysql.db:test}")
+    public void setDatabase(String db) {
+        DATABASE = db;
+    }
+
+}
+```
+
+https://blog.csdn.net/ZYC88888/article/details/87863038
+
+https://blog.csdn.net/weixin_38405253/article/details/112597839?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-1.no_search_link&spm=1001.2101.3001.4242.2
+
+https://blog.csdn.net/ZYC88888/article/details/87863038
+
+### @PostConstruct
+
+ 注解的方法在加载类的构造函数之后执行，也就是在加载了构造函数之后，执行init方法；(@PreDestroy 注解定义容器销毁之前的所做的操作)。
+
+这种方式和在xml中配置 init-method和 destory-method方法差不多，定义spring 容器在初始化bean 和容器销毁之前的所做的操作
+https://blog.csdn.net/ZYC88888/article/details/87863038
+
 ### spring整合mybatis的两种方法
 
 http://mybatis.org/spring/zh/sqlsession.html
@@ -972,7 +1542,11 @@ http://mybatis.org/spring/zh/sqlsession.html
 
 ![image-20211029135339631](./images/image-20211029135339631.png)
 
-#### Spring整合事务
+#### DAO和mapper的区别
+
+https://blog.csdn.net/qq_36381855/article/details/78309869
+
+### Spring整合事务
 
 ![image-20211029183037353](./images/image-20211029183037353.png)
 
@@ -1389,6 +1963,14 @@ https://segmentfault.com/a/1190000022613166?utm_source=tag-newest
     <url-pattern>/*</url-pattern>
 </filter-mapping>
 ```
+
+### HandlerInterceptor
+
+![image-20211115201228094](images/image-20211115201228094.png)
+
+## 配置
+
+static-path-pattern
 
 ## SpringBoot
 
